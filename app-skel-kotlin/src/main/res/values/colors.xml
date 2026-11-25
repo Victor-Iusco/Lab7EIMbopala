@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="ocean_200">#FF80CBC4</color>
+    <color name="ocean_500">#FF00796B</color>
+    <color name="ocean_700">#FF004D40</color>
+    <color name="amber_200">#FFFFE082</color>
+    <color name="amber_500">#FFFFB300</color>
+    <color name="chat_background">#1A00796B</color>
 </resources>

@@ -3,6 +3,7 @@ package ro.pub.cs.systems.eim.bluetoothchatapp
 import android.Manifest
 import android.bluetooth.BluetoothSocket
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,7 +19,7 @@ class ConnectedThread(
     private val inputStream: InputStream?
     private val outputStream: OutputStream?
 
-            init {
+    init {
         var tmpIn: InputStream? = null
         var tmpOut: OutputStream? = null
 
@@ -42,7 +43,8 @@ class ConnectedThread(
         val buffer = ByteArray(1024)
         var bytes: Int
 
-        if (ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+            ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             return
         }
 
@@ -55,7 +57,7 @@ class ConnectedThread(
         while (true) {
             try {
                 bytes = inputStream?.read(buffer) ?: break
-                        val incomingMessage = String(buffer, 0, bytes)
+                val incomingMessage = String(buffer, 0, bytes)
                 mainActivity.runOnUiThread {
                     mainActivity.addChatMessage("$remoteDeviceName: $incomingMessage")
                 }
